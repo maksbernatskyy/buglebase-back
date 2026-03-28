@@ -28,13 +28,11 @@ public class Game {
     private String description;
 
     @NotNull(message = "The release date is required")
-    @NotBlank(message = "The release date can't be empty")
     @Column(name = "release_date", nullable = false)
     private LocalDate releaseDate;
 
     @NotNull(message = "The price is required")
-    @NotBlank(message = "The price can't be empty")
-    @DecimalMin(value = "0.0", inclusive = true)
+    @DecimalMin(value = "0.0", inclusive = true, message = "The price must be at least 0")
     private BigDecimal price;
 
     // Getter and Setter
