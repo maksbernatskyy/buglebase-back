@@ -61,11 +61,12 @@ public class GameController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@Valid @ModelAttribute("game") Game formGame, BindingResult bindingResult, Model model) {
+    public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute("game") Game formGame, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "/games/edit/{id}";
+            return "/games/edit";
         }
 
+        formGame.setId(id);
         gameRepository.save(formGame);
         return "redirect:/games";
     }

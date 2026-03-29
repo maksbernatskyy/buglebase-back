@@ -41,6 +41,12 @@ public class Game {
         return this.id;
     }
 
+    public void setId(Integer id) {
+        if (id != null) {
+            this.id = id;
+        }
+    }
+
     public String getName() {
         return this.name;
     }

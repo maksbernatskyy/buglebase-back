@@ -42,7 +42,7 @@
                 <td th:text="*{releaseDate}"/>
                 <td th:text="|*{price} €|"/>
                 <td><a th:href="@{/games/{id}(id = *{id})}" class="btn btn-primary">Show</a></td>
-                <td><a th:href="@{#}" class="btn btn-secondary">Update</a></td>
+                <td><a th:href="@{/games/edit/{id}(id = *{id})}" class="btn btn-secondary">Update</a></td>
                 <td><button class="btn btn-danger">Delete</button></td>
               </tr>
             </tbody>
