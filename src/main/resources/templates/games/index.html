@@ -27,6 +27,9 @@
                 <th scope="col">Name</th>
                 <th scope="col">Release date</th>
                 <th scope="col">Price</th>
+                <th scope="col">Show</th>
+                <th scope="col">Update</th>
+                <th scope="col">Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -35,6 +38,9 @@
                 <td th:text="*{name}"/>
                 <td th:text="*{releaseDate}"/>
                 <td th:text="|*{price} €|"/>
+                <td><a th:href="@{#}" class="btn btn-primary">Show</a></td>
+                <td><a th:href="@{#}" class="btn btn-secondary">Update</a></td>
+                <td><button class="btn btn-danger">Delete</button></td>
               </tr>
             </tbody>
           </table>
