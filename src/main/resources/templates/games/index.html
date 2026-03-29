@@ -43,7 +43,11 @@
                 <td th:text="|*{price} €|"/>
                 <td><a th:href="@{/games/{id}(id = *{id})}" class="btn btn-primary">Show</a></td>
                 <td><a th:href="@{/games/edit/{id}(id = *{id})}" class="btn btn-secondary">Update</a></td>
-                <td><button class="btn btn-danger">Delete</button></td>
+                <td><form action="#" th:action="@{/games/delete/{id}(id = *{id})}" method="post">
+                    <button type="submit" class="btn btn-danger" id="delete">
+                        Delete
+                    </button>
+                </form></td>
               </tr>
             </tbody>
           </table>
