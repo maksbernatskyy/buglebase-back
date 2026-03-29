@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"
+      rel="stylesheet"
+    />
+    <title>Show</title>
+  </head>
+
+  <body>
+    <header class="py-3">
+      <div class="container">
+        <h1>Show</h1>
+      </div>
+    </header>
+
+    <main>
+      <section class="mt-5">
+        <div class="container" th:object="${game}">
+          <div class="card" style="width: 18rem">
+            <div class="card-body">
+              <h5 class="card-title" th:text="*{name}" />
+              <h6 class="card-subtitle mb-2 text-body-secondary" th:text="*{releaseDate}"/>
+              <p class="card-text" th:text="*{description}"/>
+              <h6 class="card-subtitle my-2" th:text="|*{price} €|">
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

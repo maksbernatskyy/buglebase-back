@@ -1,7 +1,6 @@
 package org.lessons.java.games.buglebase_back.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.lessons.java.games.buglebase_back.model.Game;
 import org.lessons.java.games.buglebase_back.repository.GameRepository;
@@ -28,7 +27,7 @@ public class GameController {
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {
-        Optional<Game> result = gameRepository.findById(id);
+        Game result = gameRepository.findById(id).get();
         model.addAttribute("game", result);
         return "/games/show";
     }
