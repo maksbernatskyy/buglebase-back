@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"
+      rel="stylesheet"
+    />
+    <title>Edit</title>
+</head>
+
+<body>
+    <header>
+        <h1>
+            Edit
+        </h1>
+    </header>
+
+    <main>
+        <section>
+            <div class="container">
+                <form 
+                id="game-form"
+                th:object="${game}"
+                th:action="@{/games/edit/*{id}}"
+                method="post"
+                >
+                  
+                </form>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

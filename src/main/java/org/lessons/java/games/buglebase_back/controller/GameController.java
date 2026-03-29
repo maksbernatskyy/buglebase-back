@@ -54,4 +54,20 @@ public class GameController {
         return "redirect:/games";
     }
 
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("game", gameRepository.findById(id).get());
+        return "/games/edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@Valid @ModelAttribute("game") Game formGame, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "/games/edit/{id}";
+        }
+
+        gameRepository.save(formGame);
+        return "redirect:/games";
+    }
+
 }
