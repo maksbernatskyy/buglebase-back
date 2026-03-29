@@ -1,11 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"
+      rel="stylesheet"
+    />
+    <title>Games</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <h1>Games</h1>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <div class="container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Release date</th>
+                <th scope="col">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="item : ${list}" th:object="${item}">
+                <th scope="row" th:text="*{id}" />
+                <td th:text="*{name}"/>
+                <td th:text="*{releaseDate}"/>
+                <td th:text="|*{price} €|"/>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </body>
 </html>
