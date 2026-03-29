@@ -7,9 +7,15 @@ import org.lessons.java.games.buglebase_back.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequestMapping("/games")
@@ -30,6 +36,22 @@ public class GameController {
         Game result = gameRepository.findById(id).get();
         model.addAttribute("game", result);
         return "/games/show";
+    }
+
+    @GetMapping("/create")
+    public String create(Model model) {
+        model.addAttribute("game", new Game());
+        return "/games/create";
+    }
+
+    @PostMapping("/create")
+    public String store(@Valid @ModelAttribute("game") Game formGame, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "/games/create";
+        }
+
+        gameRepository.save(formGame);
+        return "redirect:/games";
     }
 
 }
