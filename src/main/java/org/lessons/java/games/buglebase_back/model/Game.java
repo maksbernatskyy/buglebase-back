@@ -52,7 +52,7 @@ public class Game {
     }
 
     public void setName(String name) {
-        if(name != null) {
+        if (name != null) {
             this.name = name;
         }
     }
@@ -62,7 +62,7 @@ public class Game {
     }
 
     public void setDescription(String description) {
-        if(description != null) {
+        if (description != null) {
             this.description = description;
         }
     }
@@ -72,7 +72,7 @@ public class Game {
     }
 
     public void setReleaseDate(LocalDate releaseDate) {
-        if(releaseDate != null) {
+        if (releaseDate != null) {
             this.releaseDate = releaseDate;
         }
     }
@@ -82,10 +82,9 @@ public class Game {
     }
 
     public void setPrice(BigDecimal price) {
-        if(price != null && price.compareTo(BigDecimal.ZERO) > 0) {
+        if (price != null && price.compareTo(BigDecimal.ZERO) > 0) {
             this.price = price;
         }
     }
-
 
 }

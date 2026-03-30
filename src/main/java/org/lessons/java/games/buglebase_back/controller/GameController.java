@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
 @Controller
 @RequestMapping("/games")
 public class GameController {
@@ -62,7 +61,8 @@ public class GameController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute("game") Game formGame, BindingResult bindingResult, Model model) {
+    public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute("game") Game formGame,
+            BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "/games/edit";
         }
@@ -77,6 +77,5 @@ public class GameController {
         gameRepository.deleteById(id);
         return "redirect:/games";
     }
-    
 
 }
