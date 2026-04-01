@@ -21,7 +21,7 @@
           <form
             id="game-form"
             th:object="${game}"
-            th:action="@{/games/edit/{id}(id = *{id})}"
+            th:action="*{id} != null ? @{/games/edit/{id}(id = *{id})} : @{/games/create}"
             method="post"
           >
             <input type="hidden" th:field="*{id}" />
@@ -82,6 +82,13 @@
                 th:errors="*{price}"
                 class="text-danger"
               />
+            </div>
+            <div class="mb-3">
+              <select th:field="*{studio}" class="form-select">
+                <option value="">Seleziona lo studio sviluppatore</option>
+
+                <option th:each="studio : ${studios}" th:value="${studio.id}" th:text="${studio.name}"></option>
+              </select>
             </div>
             <div class="mb-3">
               <button type="submit" class="btn btn-primary">Save</button>

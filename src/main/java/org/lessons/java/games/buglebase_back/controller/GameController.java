@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 
 @Controller
 @RequestMapping("/games")
@@ -29,6 +28,7 @@ public class GameController {
 
     @Autowired
     private StudioRepository studioRepository;
+
 
     @GetMapping
     public String index(Model model) {
@@ -41,19 +41,28 @@ public class GameController {
     public String show(@PathVariable("id") Integer id, Model model) {
         Game result = gameRepository.findById(id).get();
         model.addAttribute("game", result);
+        Studio studio = studioRepository.findById(result.getStudio().getId()).get();
+        model.addAttribute("studio", studio);
         return "/games/show";
     }
 
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("game", new Game());
-        return "/games/create";
+        model.addAttribute("studios", studioRepository.findAll());
+        return "/games/createOrEdit";
     }
 
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("game") Game formGame, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "/games/create";
+            return "/games/createOrEdit";
+        }
+
+        if(formGame.getStudio() != null && formGame.getStudio().getId() != null) {
+            Studio studio = studioRepository.findById(formGame.getStudio().getId()).get();
+
+            formGame.setStudio(studio);
         }
 
         gameRepository.save(formGame);
@@ -63,17 +72,26 @@ public class GameController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("game", gameRepository.findById(id).get());
-        return "/games/edit";
+        model.addAttribute("studios", studioRepository.findAll());
+        return "/games/createOrEdit";
     }
 
     @PostMapping("/edit/{id}")
     public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute("game") Game formGame,
             BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "/games/edit";
+            return "/games/createOrEdit";
         }
 
         formGame.setId(id);
+
+        if (formGame.getStudio() != null && formGame.getStudio().getId() != null) {
+            Studio studio = studioRepository.findById(formGame.getStudio().getId()).get();
+
+            formGame.setStudio(studio);
+        }
+
+
         gameRepository.save(formGame);
         return "redirect:/games";
     }
@@ -83,15 +101,4 @@ public class GameController {
         gameRepository.deleteById(id);
         return "redirect:/games";
     }
-
-    @PutMapping("/{gameId}/studio/{studioId")
-    public Game assignStudio(@PathVariable Integer gameId, @PathVariable Integer studioId) {
-        Game game = gameRepository.findById(gameId).get();
-        Studio studio = studioRepository.findById(studioId).get();
-
-        game.setStudio(studio);
-
-        return gameRepository.save(game);
-    }
-
 }
