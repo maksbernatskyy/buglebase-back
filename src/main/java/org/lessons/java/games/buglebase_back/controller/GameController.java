@@ -3,7 +3,9 @@ package org.lessons.java.games.buglebase_back.controller;
 import java.util.List;
 
 import org.lessons.java.games.buglebase_back.model.Game;
+import org.lessons.java.games.buglebase_back.model.Studio;
 import org.lessons.java.games.buglebase_back.repository.GameRepository;
+import org.lessons.java.games.buglebase_back.repository.StudioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @Controller
 @RequestMapping("/games")
@@ -23,6 +26,9 @@ public class GameController {
 
     @Autowired
     private GameRepository gameRepository;
+
+    @Autowired
+    private StudioRepository studioRepository;
 
     @GetMapping
     public String index(Model model) {
@@ -76,6 +82,16 @@ public class GameController {
     public String delete(@PathVariable("id") Integer id) {
         gameRepository.deleteById(id);
         return "redirect:/games";
+    }
+
+    @PutMapping("/{gameId}/studio/{studioId")
+    public Game assignStudio(@PathVariable Integer gameId, @PathVariable Integer studioId) {
+        Game game = gameRepository.findById(gameId).get();
+        Studio studio = studioRepository.findById(studioId).get();
+
+        game.setStudio(studio);
+
+        return gameRepository.save(game);
     }
 
 }

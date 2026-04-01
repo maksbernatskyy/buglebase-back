@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -34,6 +36,10 @@ public class Game {
     @NotNull(message = "The price is required")
     @DecimalMin(value = "0.0", inclusive = true, message = "The price must be at least 0")
     private BigDecimal price;
+
+    @ManyToOne
+    @JoinColumn(name = "studio_id") // 
+    private Studio studio;
 
     // Getter and Setter
 
@@ -85,6 +91,14 @@ public class Game {
         if (price != null && price.compareTo(BigDecimal.ZERO) > 0) {
             this.price = price;
         }
+    }
+
+    public Studio getStudio() {
+        return this.studio;
+    }
+
+    public void setStudio(Studio studio) {
+        this.studio = studio;
     }
 
 }
