@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-@RequestMapping("/home/games")
+@RequestMapping("/games")
 public class GameController {
 
     @Autowired
