@@ -1,9 +1,6 @@
 package org.lessons.java.games.buglebase_back.controller;
 
-import java.util.List;
-
 import org.lessons.java.games.buglebase_back.model.Game;
-import org.lessons.java.games.buglebase_back.model.Studio;
 import org.lessons.java.games.buglebase_back.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,17 +24,14 @@ public class GameController {
 
     @GetMapping
     public String index(Model model) {
-        List<Game> result = gameService.findAllGames();
-        model.addAttribute("list", result);
+        model.addAttribute("list", gameService.findAllGames());
         return "/games/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {
-        Game result = gameService.findGameById(id).get();
-        model.addAttribute("game", result);
-        Studio studio = result.getStudio();
-        model.addAttribute("studio", studio);
+        model.addAttribute("game", gameService.findGameById(id).get());
+        model.addAttribute("studio", gameService.findGameById(id).get().getStudio());
         return "/games/show";
     }
 

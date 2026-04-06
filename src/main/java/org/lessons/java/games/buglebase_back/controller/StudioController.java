@@ -1,7 +1,7 @@
 package org.lessons.java.games.buglebase_back.controller;
 
 import org.lessons.java.games.buglebase_back.model.Studio;
-import org.lessons.java.games.buglebase_back.repository.StudioRepository;
+import org.lessons.java.games.buglebase_back.service.StudioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,17 +18,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class StudioController {
 
     @Autowired
-    private StudioRepository studioRepository;
+    private StudioService studioService;
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("list", studioRepository.findAll());
+        model.addAttribute("list", studioService.findAllStudios());
         return "/studios/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("studio", studioRepository.findById(id).get());
+        model.addAttribute("studio", studioService.findStudioById(id).get());
         return "/studios/show";
     }
 
@@ -44,7 +44,7 @@ public class StudioController {
             return "/studios/createOrEdit";
         }
 
-        studioRepository.save(formStudio);
+        studioService.saveStudio(formStudio);
         return "redirect:/studios";
     }
 
