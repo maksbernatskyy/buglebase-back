@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.lessons.java.games.buglebase_back.model.Studio;
 import org.lessons.java.games.buglebase_back.repository.StudioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class StudioService {
     @Autowired
     private StudioRepository studioRepository;
