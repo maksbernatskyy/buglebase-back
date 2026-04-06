@@ -48,6 +48,29 @@ public class StudioController {
         return "redirect:/studios";
     }
 
-    
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("studio", studioService.findStudioById(id).get());
+        return "/studios/createOrEdit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute() Studio formStudio,
+            BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "/studios/edit";
+        }
+
+        formStudio.setId(id);
+        studioService.saveStudio(formStudio);
+        return "redirect:/studios";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Integer id, Model model) {
+
+        studioService.deleteStudioById(id);
+        return "redirect:/studios";
+    }
 
 }

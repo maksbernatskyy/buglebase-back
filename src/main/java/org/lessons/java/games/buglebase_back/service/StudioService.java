@@ -22,4 +22,8 @@ public class StudioService {
     public Studio saveStudio(Studio studio) {
         return studioRepository.save(studio);
     }
+
+    public void deleteStudioById(Integer id) {
+        studioRepository.deleteById(id);
+    }
 }
