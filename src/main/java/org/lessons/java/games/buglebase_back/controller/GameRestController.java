@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @CrossOrigin
@@ -42,5 +45,13 @@ public class GameRestController {
             return new ResponseEntity<Game>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PostMapping
+    public ResponseEntity<Game> create(@RequestBody Game formGame) {
+        Game game = gameService.saveGame(formGame);
+        
+        return new ResponseEntity<Game>(game, HttpStatus.CREATED);
+    }
+    
 
 }
