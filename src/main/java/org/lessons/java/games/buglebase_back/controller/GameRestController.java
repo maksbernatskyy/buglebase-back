@@ -1,6 +1,7 @@
 package org.lessons.java.games.buglebase_back.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.lessons.java.games.buglebase_back.model.Game;
 import org.lessons.java.games.buglebase_back.service.GameService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @CrossOrigin
@@ -27,6 +29,17 @@ public class GameRestController {
             return new ResponseEntity<List<Game>>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<List<Game>>(list, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Game> show(@PathVariable("id") Integer id) {
+        Optional<Game> game = gameService.findGameById(id);
+
+        if (game.isPresent()) {
+            return new ResponseEntity<Game>(game.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Game>(HttpStatus.NOT_FOUND);
         }
     }
 
