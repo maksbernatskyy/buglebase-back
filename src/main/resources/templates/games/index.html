@@ -31,8 +31,8 @@
                 <th scope="col">Release date</th>
                 <th scope="col">Price</th>
                 <th scope="col">Show</th>
-                <th scope="col">Update</th>
-                <th scope="col">Delete</th>
+                <th scope="col" sec:authorize="hasAuthority('ADMIN')">Update</th>
+                <th scope="col" sec:authorize="hasAuthority('ADMIN')">Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -48,19 +48,17 @@
                     >Show</a
                   >
                 </td>
-                <td>
+                <td sec:authorize="hasAuthority('ADMIN')">
                   <a
                     th:href="@{/games/edit/{id}(id = *{id})}"
-                    sec:authorize="hasAuthoruty('ADMIN')"
                     class="btn btn-secondary"
                     >Update</a
                   >
                 </td>
-                <td>
+                <td sec:authorize="hasAuthority('ADMIN')">
                   <form
                     action="#"
                     th:action="@{/games/delete/{id}(id = *{id})}"
-                    sec:authorize="hasAuthority('ADMIN')"
                     method="post"
                   >
                     <button type="submit" class="btn btn-danger" id="delete">
