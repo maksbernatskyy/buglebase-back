@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.jspecify.annotations.Nullable;
 import org.lessons.java.games.buglebase_back.model.Role;
 import org.lessons.java.games.buglebase_back.model.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,21 +30,41 @@ public class DatabaseUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
+        return this.authorities;
     }
 
     @Override
-    public @Nullable String getPassword() {
-        throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
+    public String getPassword() {
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        throw new UnsupportedOperationException("Unimplemented method 'getUsername'");
+        return this.username;
     }
 
     public Integer getId() {
         return this.id;
     }
 
+
+    @Override
+public boolean isAccountNonExpired() {
+    return true; // Account non scaduto
+}
+
+@Override
+public boolean isAccountNonLocked() {
+    return true; // Account non bloccato
+}
+
+@Override
+public boolean isCredentialsNonExpired() {
+    return true; // Credenziali non scadute
+}
+
+@Override
+public boolean isEnabled() {
+    return true; // Utente abilitato
+}
 }
