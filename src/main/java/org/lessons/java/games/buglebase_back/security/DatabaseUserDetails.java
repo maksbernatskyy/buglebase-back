@@ -47,24 +47,23 @@ public class DatabaseUserDetails implements UserDetails {
         return this.id;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
     @Override
-public boolean isAccountNonExpired() {
-    return true; // Account non scaduto
-}
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
-@Override
-public boolean isAccountNonLocked() {
-    return true; // Account non bloccato
-}
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
-@Override
-public boolean isCredentialsNonExpired() {
-    return true; // Credenziali non scadute
-}
-
-@Override
-public boolean isEnabled() {
-    return true; // Utente abilitato
-}
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
