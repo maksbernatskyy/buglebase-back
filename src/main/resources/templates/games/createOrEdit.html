@@ -54,6 +54,20 @@
               />
             </div>
             <div class="mb-3">
+              <label for="url" class="form-label">Foto url</label>
+              <input
+                type="text"
+                id="url"
+                th:field="*{url}"
+                class="form-control"
+              />
+              <div
+                th:if="${#fields.hasErrors('url')}"
+                th:errors="*{url}"
+                class="text-danger"
+              />
+            </div>
+            <div class="mb-3">
               <label for="releaseDate" class="form-label">Release Date</label>
               <input
                 type="date"

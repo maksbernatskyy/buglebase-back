@@ -37,6 +37,9 @@ public class Game {
     @DecimalMin(value = "0.0", inclusive = true, message = "The price must be at least 0")
     private BigDecimal price;
 
+    @NotBlank(message = "The url can't be empty")
+    private String url;
+
     @ManyToOne
     @JoinColumn(name = "studio_id") // 
     private Studio studio;
@@ -99,6 +102,14 @@ public class Game {
 
     public void setStudio(Studio studio) {
         this.studio = studio;
+    }
+
+    public String getUrl() {
+        return this.url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
 }
