@@ -27,6 +27,10 @@ public class GameService {
         return gameRepository.findById(id);
     }
 
+    public Optional<Game> findGameByName(String name) {
+        return gameRepository.findByName(name);
+    }
+
     public List<Studio> findAllStudios() {
         return studioRepository.findAll();
     }

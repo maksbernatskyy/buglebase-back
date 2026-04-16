@@ -1,5 +1,8 @@
 package org.lessons.java.games.buglebase_back.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.lessons.java.games.buglebase_back.model.Game;
 import org.lessons.java.games.buglebase_back.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/games")
@@ -25,6 +29,15 @@ public class GameController {
     @GetMapping
     public String index(Model model) {
         model.addAttribute("list", gameService.findAllGames());
+        return "/games/index";
+    }
+
+    @GetMapping("/search")
+    public String showByName(@RequestParam String name, Model model) {
+        List<Game> results = new ArrayList<>();
+        gameService.findGameByName(name).ifPresent(results::add);
+
+        model.addAttribute("list", results);
         return "/games/index";
     }
 
