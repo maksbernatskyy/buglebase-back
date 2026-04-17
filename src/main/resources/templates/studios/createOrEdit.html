@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"
+      rel="stylesheet"
+    />
+    <title>Create or Edit</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <h1 th:if="${studio.id != null}">Edit</h1>
+        <h1 th:if="${studio.id == null}">Create</h1>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <form
+          th:object="${studio}"
+          th:action="*{id} != null ? @{/studios/edit/{id}(id = *{id})} : @{/studios/create}"
+          method="post"
+          id="studio-form"
+        >
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              th:field="*{name}"
+            />
+            <div
+              th:if="${#fields.hasErrors('name')}"
+              th:errors="*{name}"
+              class="text-danger"
+            ></div>
+          </div>
+          <div class="mb-3">
+            <label for="yearFoundation" class="form-label"
+              >Year of Foundation</label
+            >
+            <input
+              type="number"
+              id="yearFoundation"
+              th:field="*{yearFoundation}"
+              class="form-control"
+            />
+            <div
+              th:if="${#fields.hasErrors('yearFoundation')}"
+              th:errors="*{yearFoundation}"
+              class="text-danger"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="headquarters" class="form-label">Headquarters</label>
+            <input
+              type="text"
+              id="headquarters"
+              th:field="*{headquarters}"
+              class="form-control"
+            />
+            <div
+              th:if="${#fields.hasErrors('headquarters')}"
+              th:errors="*{headquarters}"
+              class="text-danger"
+            />
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

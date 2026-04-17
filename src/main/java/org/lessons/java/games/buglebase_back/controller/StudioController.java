@@ -58,7 +58,7 @@ public class StudioController {
     public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute() Studio formStudio,
             BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "/studios/edit";
+            return "/studios/createOrEdit";
         }
 
         formStudio.setId(id);

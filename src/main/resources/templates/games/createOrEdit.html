@@ -7,12 +7,15 @@
       th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"
       rel="stylesheet"
     />
-    <title>Edit</title>
+    <title>Create or Edit</title>
   </head>
 
   <body>
     <header>
-      <h1>Edit</h1>
+      <div class="container">
+        <h1 th:if="${game.id == null}">Create</h1>
+        <h1 th:if="${game.id != null}">Edit</h1>
+      </div>
     </header>
 
     <main>
@@ -24,7 +27,6 @@
             th:action="*{id} != null ? @{/games/edit/{id}(id = *{id})} : @{/games/create}"
             method="post"
           >
-            <input type="hidden" th:field="*{id}" />
             <div class="mb-3">
               <label for="name" class="form-label">Name</label>
               <input
@@ -101,7 +103,11 @@
               <select th:field="*{studio}" class="form-select">
                 <option value="">Seleziona lo studio sviluppatore</option>
 
-                <option th:each="studio : ${studios}" th:value="${studio.id}" th:text="${studio.name}"></option>
+                <option
+                  th:each="studio : ${studios}"
+                  th:value="${studio.id}"
+                  th:text="${studio.name}"
+                ></option>
               </select>
             </div>
             <div class="mb-3">
