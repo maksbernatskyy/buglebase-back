@@ -61,7 +61,7 @@ public class GameRestController {
         return new ResponseEntity<Game>(game, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}") 
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Integer id) {
         gameService.deleteGameById(id);
     }
