@@ -11,13 +11,12 @@
   </head>
 
   <body>
-    <header>
+    <header th:replace="~{/fragments/header :: header}" />
+
+    <main>
       <div class="container">
         <h1>Games</h1>
       </div>
-    </header>
-
-    <main>
       <section>
         <div class="container">
           <div class="mt-3 d-flex">
@@ -43,7 +42,10 @@
               <button class="btn btn-secondary" type="submit">Reset</button>
             </form>
           </div>
-          <div class="mt-3 text-center text-danger fs-1" th:if="${list.isEmpty()}">
+          <div
+            class="mt-3 text-center text-danger fs-1"
+            th:if="${list.isEmpty()}"
+          >
             <span>Game not found</span>
           </div>
           <table th:if="${!list.isEmpty()}" class="table">

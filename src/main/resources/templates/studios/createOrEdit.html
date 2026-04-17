@@ -11,15 +11,14 @@
   </head>
 
   <body>
-    <header>
-      <div class="container">
-        <h1 th:if="${studio.id != null}">Edit</h1>
-        <h1 th:if="${studio.id == null}">Create</h1>
-      </div>
-    </header>
+    <header th:replace="~{/fragments/header :: header}" />
 
     <main>
       <div class="container">
+        <div class="container">
+          <h1 th:if="${studio.id != null}">Edit</h1>
+          <h1 th:if="${studio.id == null}">Create</h1>
+        </div>
         <form
           th:object="${studio}"
           th:action="*{id} != null ? @{/studios/edit/{id}(id = *{id})} : @{/studios/create}"
