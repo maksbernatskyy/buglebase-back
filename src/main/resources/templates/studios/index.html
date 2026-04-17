@@ -20,7 +20,7 @@
         <section>
         <div class="container">
           <div class="mt-3">
-            <a th:href="@{/studios/create}" class="btn btn-primary">Add a studio</a>
+            <a th:href="@{/studios/create}" class="btn btn-primary" sec:authorize="hasAuthority('ADMIN')">Add a studio</a>
           </div>
           <table class="table">
             <thead>
@@ -30,8 +30,8 @@
                 <th scope="col">Year of foundation</th>
                 <th scope="col">Headquarters</th>
                 <th scope="col">Show</th>
-                <th scope="col">Edit</th>
-                <th scope="col">Delete</th>
+                <th scope="col" sec:authorize="hasAuthority('ADMIN')">Edit</th>
+                <th scope="col" sec:authorize="hasAuthority('ADMIN')">Delete</th>
 
               </tr>
             </thead>
@@ -48,14 +48,14 @@
                     >Show</a
                   >
                 </td>
-                <td>
+                <td sec:authorize="hasAuthority('ADMIN')">
                   <a
                     th:href="@{/studios/edit/{id}(id = *{id})}"
                     class="btn btn-secondary"
                     >Update</a
                   >
                 </td>
-                <td>
+                <td sec:authorize="hasAuthority('ADMIN')">
                   <form
                     action="#"
                     th:action="@{/studios/delete/{id}(id = *{id})}"
