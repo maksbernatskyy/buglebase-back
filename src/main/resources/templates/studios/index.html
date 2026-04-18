@@ -62,15 +62,60 @@
                   >
                 </td>
                 <td sec:authorize="hasAuthority('ADMIN')">
-                  <form
-                    action="#"
-                    th:action="@{/studios/delete/{id}(id = *{id})}"
-                    method="post"
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    th:data-bs-target="'#delete-modal-' + *{id}"
                   >
-                    <button type="submit" class="btn btn-danger" id="delete">
-                      Delete
-                    </button>
-                  </form>
+                    Delete
+                  </button>
+                  <div
+                    th:id="'delete-modal-' + *{id}"
+                    class="modal fade"
+                    tabindex="-1"
+                    aria-labelledby="delete-modal"
+                    aria-hidden="true"
+                  >
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5
+                            th:text="|Deleting *{name}?|"
+                            class="modal-title fs-5"
+                          />
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div class="modal-body">
+                          You sure to delete <strong>"[[*{name}]]"</strong>?
+                        </div>
+                        <div class="modal-footer">
+                          <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Close
+                          </button>
+                          <form
+                            id="delete"
+                            action="#"
+                            th:action="@{/studios/delete/{id}(id = *{id})}"
+                            method="post"
+                          >
+                            <button class="btn btn-danger" type="submit">
+                              Delete
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -79,4 +124,7 @@
       </section>
     </main>
   </body>
+  <script
+    th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"
+  ></script>
 </html>
